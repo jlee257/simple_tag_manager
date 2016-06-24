@@ -1,0 +1,52 @@
+﻿<Window x:Class="SimpleTagManager.WindowEditTags"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleTagManager"
+        mc:Ignorable="d"
+        Title="Edit Tags" Height="327.676" Width="356.699">
+    <Window.Resources>
+        <local:TextInputToVisibilityConverter x:Key="textInputToVisibilityConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="248.8"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="label1" Content="Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
+        <Label x:Name="label2" Content="Address:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Height="26" Width="54"/>
+        <Label x:Name="labelName" Content="@name" HorizontalAlignment="Left" Margin="69,10,0,0" VerticalAlignment="Top" Height="26" Width="266"/>
+        <Label x:Name="labelAddress" Content="@address" HorizontalAlignment="Left" Margin="69,36,0,0" VerticalAlignment="Top" Height="26" Width="266"/>
+        <Label x:Name="label3" Content="Tags:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Height="26" Width="35"/>
+        <ListView x:Name="listViewTags" HorizontalAlignment="Stretch" Height="105" Margin="15,93,15.4,0" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tag name" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBox x:Name="textBoxAdd" HorizontalAlignment="Left" Height="25" Margin="15,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" VerticalContentAlignment="Center" Padding="3" UndoLimit="50" AllowDrop="False"/>
+        <TextBlock x:Name="textBlockHint" HorizontalAlignment="Left" Margin="21,214,0,0" TextWrapping="Wrap" Text="ex: apple" VerticalAlignment="Top" Foreground="#FFD1D1D1" IsHitTestVisible="False">
+            <TextBlock.Visibility>
+                <MultiBinding Converter="{StaticResource textInputToVisibilityConverter}">
+                    <Binding ElementName="textBoxAdd" Path="Text.IsEmpty" />
+                    <Binding ElementName="textBoxAdd" Path="IsFocused" />
+                </MultiBinding>
+            </TextBlock.Visibility>
+        </TextBlock>
+        <Button x:Name="buttonAdd" Content="Add" HorizontalAlignment="Left" Margin="180,210,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="buttonAdd_Click"/>
+        <Button x:Name="buttonDelete" Content="Delete" HorizontalAlignment="Left" Margin="260,210,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="buttonDelete_Click"/>
+
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,246,0.4,0.4" Grid.RowSpan="2"/>
+        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="180,14.2,0,0" VerticalAlignment="Top" Width="75" Height="25" Grid.Row="1" Click="buttonOK_Click"/>
+        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="260,14.2,0,0" VerticalAlignment="Top" Width="75" Height="25" Grid.Row="1" Click="buttonCancel_Click"/>
+
+
+    </Grid>
+</Window>

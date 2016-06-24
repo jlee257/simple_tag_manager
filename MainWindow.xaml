@@ -1,0 +1,167 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleTagManager"
+        xmlns:Custom="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+        xmlns:Custom1="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
+        x:Class="SimpleTagManager.MainWindow"
+        mc:Ignorable="d"
+        Title="SimpleTagManager" Height="511.6" Width="709.495">
+
+    <Grid>
+        <!--Grid definitions-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="169*"/>
+            <ColumnDefinition Width="594*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <GridSplitter x:Name="gridSplitter" Width="5" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Grid.RowSpan="2"/>
+        <GridSplitter x:Name="gridSplitter2" Height="5" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0"/>
+
+
+
+        <!--Row0: ribbon menu-->
+        <Ribbon x:Name="ribbonMain" HorizontalAlignment="Stretch" Grid.Row="0" VerticalAlignment="Top" UseLayoutRounding="False" Loaded="ribbonMain_Loaded" Grid.ColumnSpan="2" ShowQuickAccessToolBarOnTop="False">
+
+            <!--Ribbon application menu-->
+            <Ribbon.ApplicationMenu>
+
+                <RibbonApplicationMenu x:Name="ribbonApplicationMenu">
+                    <RibbonApplicationMenuItem x:Name="ribbonApplicationMenuItemBookmarks" Header="Bookmarks" Click="ribbonApplicationMenuItemBookmarks_Click"/>
+                    <RibbonApplicationMenuItem x:Name="ribbonApplicationMenuItemOptions" Header="Options" Click="ribbonApplicationMenuItemOptions_Click"/>
+                    <RibbonApplicationMenuItem x:Name="ribbonApplicationMenuItemAbout" Header="About SimpleTagManager" Click="ribbonApplicationMenuItemAbout_Click"/>
+                    <RibbonSeparator />
+                    <RibbonApplicationMenuItem x:Name="ribbonApplicationMenuItemClose" Header="Close" Click="ribbonApplicationMenuItemClose_Click"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+
+            <!--Ribbon taps-->
+            <RibbonTab x:Name="ribbonTapSearch" Header="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" IsSelected="True">
+
+                <!--Ribbon group1: search options-->
+                <RibbonGroup Header="Search options">
+                    <RibbonComboBox x:Name="ribbonComboBoxSearchSub" SelectionBoxWidth="130" Margin="0,11,0,-10.6">
+                        <RibbonGallery SelectedValue="Search all subfolders"
+							SelectedValuePath="Content"
+							MaxColumnCount="1" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <RibbonGalleryCategory>
+                                <RibbonGalleryItem Content="Search all subfolders"/>
+                                <RibbonGalleryItem Content="Search current folder"/>
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                    <RibbonComboBox x:Name="ribbonComboBoxSearchBoth" SelectionBoxWidth="130" Margin="0,11,0,-10.6">
+                        <RibbonGallery SelectedValue="Search files and folders"
+							SelectedValuePath="Content"
+							MaxColumnCount="1" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False">
+                            <RibbonGalleryCategory>
+                                <RibbonGalleryItem Content="Search files and folders"/>
+                                <RibbonGalleryItem Content="Search files only"/>
+                                <RibbonGalleryItem Content="Search folders only"/>
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                </RibbonGroup>
+
+                <!--Ribbon group2: search-->
+                <RibbonGroup x:Name="ribbonGroupSearch" HorizontalAlignment="Left" VerticalAlignment="Stretch" Header="Search" Width="486" Margin="0,0,0,-0.2">
+                    <RibbonButton x:Name="ribbonButtonSearch" Label="Search"
+						Width="70" Height="36"
+						Padding="4,9,0,0"
+						VerticalAlignment="Center" Margin="400,11,-400.4,21" Click="ribbonButtonSearch_Click" />
+
+
+                    <RibbonButton x:Name="ribbonButtonBookmark" Label="Bookmark" Margin="330,50,-329.6,-49.8" Width="70" Padding="5, 1, 3, 1" IsEnabled="False" Click="ribbonButtonBookmark_Click"/>
+                    <RibbonTextBox x:Name="ribbonTextBoxAndTags" TextWrapping="Wrap" TextBoxWidth="250" Margin="60,-7,-264.4,7"/>
+                    <RibbonTextBox x:Name="ribbonTextBoxOrTags" TextWrapping="Wrap" TextBoxWidth="250" Margin="60,-6,-264.4,6"/>
+
+                    <Label Content="Contains all of:" Margin="-95,12,95,-12.4"/>
+                    <Label Content="...and contains one of:" Margin="-133,10,133.6,-10.4"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+
+
+        <!--Row1: directorry textbox-->
+        <TextBox x:Name="textBoxPath" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap"
+			Text="" VerticalAlignment="Center" Grid.Row="1"
+			Padding="3" VerticalContentAlignment="Center" Margin="83,3,82.2,3" Grid.ColumnSpan="2" Background="White" />
+        <Button x:Name="buttonPrev" Content="Prev" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3"
+			Width="75" Height="{Binding ActualHeight, ElementName=textBoxPath, Mode=OneWay}" Grid.Row="1" Background="{x:Null}" Grid.ColumnSpan="2" BorderBrush="#FFABADB3" Click="buttonPrev_Click"/>
+        <Button x:Name="buttonGoTo" Content="GoTo" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3"
+			Width="75" Height="{Binding ActualHeight, ElementName=textBoxPath, Mode=OneWay}" Grid.Row="1" Background="{x:Null}" Grid.Column="1" BorderBrush="#FFABADB3" Click="buttonGoTo_Click"/>
+
+
+
+        <!--Row2 listviews-->
+        <TreeView x:Name="treeViewDirectories" TreeViewItem.Expanded="treeViewDirectories_Expanded" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" BorderBrush="{x:Null}" SelectedItemChanged="treeViewDirectories_SelectedItemChanged"/>
+        <ListView x:Name="listViewBookmarks" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" Margin="0,5,0,0" BorderBrush="{x:Null}" SelectionMode="Single" SelectionChanged="listViewBookmarks_SelectionChanged" LostFocus="listViewBookmarks_LostFocus">
+
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="Padding" Value="3, 0,3,0" />
+                </Style>
+            </ListView.Resources>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Bookmarks" DisplayMemberBinding="{Binding Title}" Width="130"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="listViewMain" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Grid.Column="1" Margin="5,0,0,0" Grid.RowSpan="2" BorderBrush="{x:Null}" MouseDoubleClick="ListViewMain_MouseDoubleClick" ContextMenuOpening="listViewMain_ContextMenuOpening">
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="Padding" Value="3, 0, 3, 0" />
+                </Style>
+            </ListView.Resources>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="menuItemOpen" Header="Open" Click="menuItemOpen_Click" />
+                    <MenuItem x:Name="menuItemOpenCustom" Header="Open (custom)" Click="menuItemOpenCustom_Click" />
+                    <Separator x:Name="menuItemSeparater1"/>
+                    <MenuItem x:Name="menuItemCut" Header="Cut" Click="menuItemCut_Click"/>
+                    <MenuItem x:Name="menuItemCopy" Header="Copy" Click="menuItemCopy_Click"/>
+                    <MenuItem x:Name="menuItemPaste" Header="Paste" Click="menuItemPaste_Click"/>
+                    <Separator x:Name="menuItemSeparater2"/>
+                    <MenuItem x:Name="menuItemDelete" Header="Delete" Click="menuItemDelete_Click"/>
+                    <MenuItem x:Name="menuItemRename" Header="Rename" Click="menuItemRename_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name"  Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16" Source="{Binding Icon}" Stretch="UniformToFill" />
+                                    <TextBlock Text="{Binding Name}" Foreground="{Binding ForeColor}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" Width="50"/>
+                    <GridViewColumn Header="Date Modified" DisplayMemberBinding="{Binding DateModified}" Width="80"/>
+                    <GridViewColumn Header="Tags" DisplayMemberBinding="{Binding Tags}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="buttonEdit" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Edit" Width="65" Grid.Column="1" Margin="0,0,10.2,10.4" Grid.Row="3" Background="White" Height="45" Click="buttonEdit_Click"/>
+
+
+
+    </Grid>
+
+</Window>
